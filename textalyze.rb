@@ -23,14 +23,17 @@
 # In short, item_counts(array) tells us how many times each item appears
 # in the input array.
 
+require 'pry'
 def item_counts(array)
   counts = {} # Initialize counts to an empty Hash
 
   array.each do |item|
-    # Add code here to modify the "counts" hash accordingly
-    # You'll need to handle two cases:
-    #   1. The first time we've seen a particular item in the array
-    #   2. The second-or-later time we've seen a particular item in the array
+    item = item
+    if counts.has_key? item
+      counts[item] += 1
+    else
+      counts[item] = 1
+    end
   end
 
   counts # This returns the "counts" hash
