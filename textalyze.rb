@@ -23,20 +23,49 @@
 # In short, item_counts(array) tells us how many times each item appears
 # in the input array.
 
-require 'pry'
-def item_counts(array)
-  counts = {} # Initialize counts to an empty Hash
+def item_counts(items, words = nil)
+  words = false
+  return if items.any? { |item| contains_words?(item) && words == false}
 
-  array.each do |item|
-    item = item
+  counts = {}
+
+  items.each do |item|
+    # i'm not really sure if respond_to? is the correct defensive pattern.
+    item = sanitize(item)
     if counts.has_key? item
       counts[item] += 1
     else
       counts[item] = 1
     end
   end
+  counts
+end
 
-  counts # This returns the "counts" hash
+def contains_words?(phrase)
+  return false unless phrase.match(/([a-zA-Z])*\s+([a-zA-Z])+/)
+  true
+end
+
+def process_multiple_items(items)
+  results = {}
+  items.each do |item|
+    count_statistics = item_counts(arrayify_characters(item))
+    if results.empty?
+      results = count_statistics
+    else
+      results.merge!(count_statistics) do | key, oldvalue, newvalue |
+        oldvalue + newvalue
+      end
+    end
+  end
+  results
+end
+
+def process_from_file(file_name)
+  lines = File.open(file_name, "r").each_with_object([]) do |line, object|
+    object.push line
+  end
+  process_multiple_items(lines)
 end
 
 def sensible_print(count_statistics)
@@ -56,18 +85,20 @@ def arrayify_characters(valid_string)
   valid_string.split("")
 end
 
-def sanitize(string)
-  string.downcase
+def sanitize(characters)
+  return unless characters.respond_to? :downcase
+  characters.downcase
 end
 
-
+puts "WeLcOmE to Text.ly 2.0"
+sensible_print(process_from_file(ARGV[0]))
 # p item_counts([1,2,1,2,1]) == {1 => 3, 2 => 2}
-# p item_counts(["a","b","a","b","a","ZZZ"]) == {"a" => 3, "b" => 2, "ZZZ" => 1}
+# p item_counts(["a","b","a","b","A","ZZZ"]) == {"a" => 3, "b" => 2, "zzz" => 1}
 # p item_counts([]) == {}
 # p item_counts(["hi", "hi", "hi"]) == {"hi" => 3}
 # p item_counts([true, nil, "dinosaur"]) == {true => 1, nil => 1, "dinosaur" => 1}
 # p item_counts(["a","a","A","A"]) == {"a" => 2, "A" => 2}
-p sanitize("@jCDAvison") == "@jcdavison"
+# p sanitize("@jCDAvison") == "@jcdavison"
 # sensible_print item_counts(["a","a","A","A", nil, true, false, true])
 # p arrayify_characters("johndavison!@#\$")
 # sensible_print item_counts(arrayify_characters("joooohndaaaahvison"))
