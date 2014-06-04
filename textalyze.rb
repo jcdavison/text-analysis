@@ -40,6 +40,7 @@ def item_counts(array)
 end
 
 def sensible_print(count_statistics)
+  puts "---"
   puts "the counts for\n"
   p count_statistics
   puts "are..."
@@ -47,6 +48,12 @@ def sensible_print(count_statistics)
     key = "nil" if key.nil?
     puts "#{key}, #{value}" 
   end
+  puts "end transmission"
+  puts "---"
+end
+
+def arrayify_characters(valid_string)
+  valid_string.split("")
 end
 
 
@@ -57,3 +64,5 @@ end
 # p item_counts([true, nil, "dinosaur"]) == {true => 1, nil => 1, "dinosaur" => 1}
 # p item_counts(["a","a","A","A"]) == {"a" => 2, "A" => 2}
 sensible_print item_counts(["a","a","A","A", nil, true, false, true])
+p arrayify_characters("johndavison!@#\$")
+sensible_print item_counts(arrayify_characters("joooohndaaaahvison"))
