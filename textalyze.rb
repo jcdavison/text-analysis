@@ -56,6 +56,10 @@ def arrayify_characters(valid_string)
   valid_string.split("")
 end
 
+def sanitize(string)
+  string.downcase
+end
+
 
 # p item_counts([1,2,1,2,1]) == {1 => 3, 2 => 2}
 # p item_counts(["a","b","a","b","a","ZZZ"]) == {"a" => 3, "b" => 2, "ZZZ" => 1}
@@ -63,6 +67,7 @@ end
 # p item_counts(["hi", "hi", "hi"]) == {"hi" => 3}
 # p item_counts([true, nil, "dinosaur"]) == {true => 1, nil => 1, "dinosaur" => 1}
 # p item_counts(["a","a","A","A"]) == {"a" => 2, "A" => 2}
-sensible_print item_counts(["a","a","A","A", nil, true, false, true])
-p arrayify_characters("johndavison!@#\$")
-sensible_print item_counts(arrayify_characters("joooohndaaaahvison"))
+p sanitize("@jCDAvison") == "@jcdavison"
+# sensible_print item_counts(["a","a","A","A", nil, true, false, true])
+# p arrayify_characters("johndavison!@#\$")
+# sensible_print item_counts(arrayify_characters("joooohndaaaahvison"))
