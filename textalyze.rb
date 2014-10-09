@@ -1,9 +1,7 @@
 require 'pry'
 def item_counts(items)
-  return if items.empty?
   counts = {}
-  items.map! {|item| sanitize(item)}
-  items.each do |item|
+  items.split(" ").each do |item|
     if counts.has_key? item
       counts[item] += 1
     else
@@ -13,9 +11,16 @@ def item_counts(items)
   counts
 end
 
-def sanitize(characters)
-  return characters unless characters.respond_to? :downcase
-  characters.downcase
+def sensible_print(count_statistics)
+  puts "---"
+  puts "the counts for\n"
+  puts "are..."
+  count_statistics.each do |key, value|
+    key = "nil" if key.nil?
+    puts "#{key}, #{value}" 
+  end
+  puts "end transmission"
+  puts "---"
 end
 
 def contains_words?(phrase)
@@ -46,18 +51,6 @@ def process_from_file(file_name)
   process_multiple_items(lines)
 end
 
-def sensible_print(count_statistics)
-  puts "---"
-  puts "the counts for\n"
-  p count_statistics
-  puts "are..."
-  count_statistics.each do |key, value|
-    key = "nil" if key.nil?
-    puts "#{key}, #{value}" 
-  end
-  puts "end transmission"
-  puts "---"
-end
 
 def print_histogram(frequencies, char= nil, width = nil)
   width ||= 100; char ||= "*"
