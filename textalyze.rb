@@ -1,4 +1,5 @@
-require 'pry'
+# BEGIN V[0.1]
+
 def item_counts(items)
   counts = {}
   items.split(" ").each do |item|
@@ -21,6 +22,14 @@ def sensible_print(count_statistics)
   end
   puts "end transmission"
   puts "---"
+end
+
+# END V[0.1]
+
+# BEGIN v[0.2]
+
+def to_chars(string)
+  string.split("")
 end
 
 def contains_words?(phrase)
@@ -59,9 +68,6 @@ def print_histogram(frequencies, char= nil, width = nil)
   end
 end
 
-def arrayify_characters(valid_string)
-  valid_string.split("")
-end
 
 
 def relative_frequencies(counts)
