@@ -32,6 +32,16 @@ def to_chars(string)
   string.split("")
 end
 
+# END V[0.2]
+
+# BEGIN v[0.3]
+
+def sanitize(string)
+  string.downcase
+end
+
+# END V[0.3]
+
 def contains_words?(phrase)
   return false unless phrase.match(/([a-zA-Z])*\s+([a-zA-Z])+/)
   true
