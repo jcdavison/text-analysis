@@ -43,7 +43,7 @@ end
 # END V[0.3]
 
 
-# BEING V[0.4]
+# BEGIN V[0.4]
 
 def process_hard_coded_data() 
   data = File.read("./sample_data/moby-dick.txt")
@@ -54,6 +54,30 @@ def process_hard_coded_data()
 end
 
 # END V[0.4]
+
+
+# BEGIN V[1.0]
+
+def request_user_supplied_file_name()
+  available_files = "great-gatsby.txt moby-dick.txt tale-of-two-cities.txt" 
+  puts "Please enter a file to process."
+  puts available_files
+  gets.chomp
+end
+
+def process_user_designated_file(file_name)
+  data = File.read("./sample_data/#{file_name}")
+  data.split(" ").map! do |element|
+    sanitize(element)
+  end
+end
+
+def request_and_process_user_supplied_file()
+  user_specified_file = request_user_supplied_file_name()
+  sensible_print(process_user_designated_file(user_specified_file))
+end
+
+# END V[1.0]
 
 def contains_words?(phrase)
   return false unless phrase.match(/([a-zA-Z])*\s+([a-zA-Z])+/)
@@ -103,17 +127,18 @@ end
 
 puts "WeLcOmE to Text.ly 2.0"
 if __FILE__ == $0
-  p item_counts([1,2,1,2,1]) == {1 => 3, 2 => 2}
-  p item_counts(["a","b","a","b","A","ZZZ"]) == {"a" => 3, "b" => 2, "zzz" => 1}
-  p item_counts([]) == nil
-  p item_counts(["hi", "hi", "hi"]) == {"hi" => 3}
-  p item_counts([true, nil, "dinosaur"]) == {true => 1, nil => 1, "dinosaur" => 1}
-  p item_counts(["a","a","A","A"]) != {"a" => 2, "A" => 2}
-  p sanitize("@jCDAvison") == "@jcdavison"
-  sensible_print item_counts(["a","a","A","A", nil, true, false, true])
-  p arrayify_characters("j\$jd") == [ "j", "\$", "j", "d"]
-  sensible_print item_counts(arrayify_characters("joooohndaaaahvison"))
-  p relative_frequencies({a: 3, b: 5, c: 1000}) == {:a=>0.003, :b=>0.005, :c=>0.992}
-  p print_histogram(relative_frequencies({a: 3, b: 5, c: 10}),"8" , 25)
-  sensible_print(process_from_file(ARGV[0]))
+  puts request_and_process_user_supplied_file()
+  # p item_counts([1,2,1,2,1]) == {1 => 3, 2 => 2}
+  # p item_counts(["a","b","a","b","A","ZZZ"]) == {"a" => 3, "b" => 2, "zzz" => 1}
+  # p item_counts([]) == nil
+  # p item_counts(["hi", "hi", "hi"]) == {"hi" => 3}
+  # p item_counts([true, nil, "dinosaur"]) == {true => 1, nil => 1, "dinosaur" => 1}
+  # p item_counts(["a","a","A","A"]) != {"a" => 2, "A" => 2}
+  # p sanitize("@jCDAvison") == "@jcdavison"
+  # sensible_print item_counts(["a","a","A","A", nil, true, false, true])
+  # p arrayify_characters("j\$jd") == [ "j", "\$", "j", "d"]
+  # sensible_print item_counts(arrayify_characters("joooohndaaaahvison"))
+  # p relative_frequencies({a: 3, b: 5, c: 1000}) == {:a=>0.003, :b=>0.005, :c=>0.992}
+  # p print_histogram(relative_frequencies({a: 3, b: 5, c: 10}),"8" , 25)
+  # sensible_print(process_from_file(ARGV[0]))
 end
