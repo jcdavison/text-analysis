@@ -42,6 +42,19 @@ end
 
 # END V[0.3]
 
+
+# BEING V[0.4]
+
+def process_hard_coded_data() 
+  data = File.read("./sample_data/moby-dick.txt")
+  data.split(" ").map! do |element|
+    sanitize(element)
+  end
+  sensible_print(item_counts(data))
+end
+
+# END V[0.4]
+
 def contains_words?(phrase)
   return false unless phrase.match(/([a-zA-Z])*\s+([a-zA-Z])+/)
   true
