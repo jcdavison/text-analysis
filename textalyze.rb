@@ -90,7 +90,7 @@ def basic_frequency_count(items)
   counts = item_counts(items)
   sum_of_all_counts = counts.values.reduce(:+)
   counts.each do |key,value|
-    counts[key] = (value.to_f / sum_of_all_counts).round(2)
+    counts[key] = (value.to_f / sum_of_all_counts).round(8)
   end
 end
 
