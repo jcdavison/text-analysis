@@ -39,7 +39,7 @@ end
 # BEGIN v[0.3]
 
 def sanitize(string)
-  string.downcase
+  string.downcase.gsub(/\W/, "")
 end
 
 # END V[0.3]
