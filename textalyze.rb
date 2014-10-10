@@ -101,9 +101,15 @@ end
 
 def print_histogram(frequencies)
   width = frequencies.max.pop
-  frequencies.each do |key, value|
-    print "rel % = #{value} | #{"*" * (value * width)}\n"
+  sorted_frequencies = frequencies.sort_by do |key, value|
+    value
   end
+  sorted_frequencies.each do |element|
+    word = element[0]
+    frequency = element[1]
+    print "#{word} rel% = #{frequency} | #{"*" * (frequency * width)}\n"
+  end
+  nil
 end
 
 # END V[1.2]
