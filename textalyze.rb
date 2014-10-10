@@ -61,7 +61,7 @@ end
 # BEGIN V[1.0]
 
 def request_user_supplied_file_name()
-  available_files = "great-gatsby.txt moby-dick.txt tale-of-two-cities.txt" 
+  available_files = "great-gatsby.txt moby-dick.full.txt tale-of-two-cities.txt" 
   puts "Please enter a file to process."
   puts available_files
   gets.chomp
