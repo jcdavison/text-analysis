@@ -2,7 +2,7 @@
 
 def item_counts(items)
   counts = {}
-  items.split(" ").each do |item|
+  items.each do |item|
     if counts.has_key? item
       counts[item] += 1
     else
@@ -78,6 +78,20 @@ def request_and_process_user_supplied_file()
 end
 
 # END V[1.0]
+
+
+# BEGIN V[1.1]
+
+def basic_frequency_count(items)
+  # notice that item_counts() was built in V[0.1]
+  counts = item_counts(items)
+  sum_of_all_counts = counts.values.reduce(:+)
+  counts.each do |key,value|
+    counts[key] = (value.to_f / sum_of_all_counts).round(2)
+  end
+end
+
+# END V[1.1]
 
 def contains_words?(phrase)
   return false unless phrase.match(/([a-zA-Z])*\s+([a-zA-Z])+/)
