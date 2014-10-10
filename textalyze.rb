@@ -74,9 +74,10 @@ def process_user_designated_file(file_name)
   end
 end
 
-def request_and_process_user_supplied_file()
+def request_process_display_user_supplied_file()
   user_specified_file = request_user_supplied_file_name()
-  sensible_print(process_user_designated_file(user_specified_file))
+  counts = item_counts(process_user_designated_file(user_specified_file))
+  sensible_print(counts)
 end
 
 # END V[1.0]
@@ -98,10 +99,10 @@ end
 
 # BEGIN V[1.2]
 
-def print_histogram(frequencies, char= nil, width = nil)
-  width ||= 100; char ||= "*"
+def print_histogram(frequencies)
+  width = frequencies.max.pop
   frequencies.each do |key, value|
-    print "rel % = #{value} | #{char * (value * width)}\n"
+    print "rel % = #{value} | #{"*" * (value * width)}\n"
   end
 end
 
